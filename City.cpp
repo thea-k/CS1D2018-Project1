@@ -1,33 +1,19 @@
 #include "City.h"
 
-City::City()
-{
-	cityName = "NULL";
-	distanceFromPreviousCity = 0;
+City::City() {
+  cityName = "NULL";
+  distanceFromPreviousCity = 0;
 }
 
-City::City(string x, int y)
-{
-	cityName = x;
-	distanceFromPreviousCity = y;
+City::City(QString x, int y) {
+  cityName = x;
+  distanceFromPreviousCity = y;
 }
 
-string City::getName() const
-{
-	return cityName;
-}
+QString City::getName() const { return cityName; }
 
-int City::getDistance() const
-{
-	return distanceFromPreviousCity;
-}
+int City::getDistance() const { return distanceFromPreviousCity; }
 
-void City::setName(string x)
-{
-	cityName = x;
-}
+void City::setName(QString x) { cityName = x; }
 
-void City::setDistance(int x)
-{
-	distanceFromPreviousCity = x;
-}
+void City::setDistance(int x) { distanceFromPreviousCity = x; }

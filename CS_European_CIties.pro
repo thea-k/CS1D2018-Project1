@@ -25,11 +25,14 @@ CONFIG += c++11
 SOURCES += \
 		main.cpp \
 		travelersmainwindow.cpp \
-	dbmanager.cpp
+	dbmanager.cpp \
+    Algorithm.cpp \
+    City.cpp
 
 HEADERS += \
 		travelersmainwindow.h \
-	dbmanager.h
+	dbmanager.h \
+    City.h
 
 FORMS += \
 		travelersmainwindow.ui
@@ -38,3 +41,5 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=

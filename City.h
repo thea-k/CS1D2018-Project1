@@ -1,23 +1,23 @@
 #pragma once
-#ifndef H-City
+#ifndef H_City
 #define H_City
 
-#include <string>
+#include <QTextCodec>
+
 using namespace std;
 
-class City
-{
-public:
-	City();
-	City(string, int);
-	int getDistance() const;
-	string getName() const;
-	void setDistance(int);
-	void setName(string);
+class City {
+ public:
+  City();
+  City(QString, int);
+  int getDistance() const;
+  QString getName() const;
+  void setDistance(int);
+  void setName(QString);
 
-private:
-	string cityName;
-	int distanceFromPreviousCity;
+ private:
+  QString cityName;
+  int distanceFromPreviousCity;
 };
 
-#endif // !"City.h"
+#endif  // !"City.h"

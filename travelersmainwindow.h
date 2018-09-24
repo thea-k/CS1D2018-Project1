@@ -9,16 +9,15 @@ namespace Ui {
 class TravelersMainWindow;
 }
 
-class TravelersMainWindow : public QMainWindow
-{
-	Q_OBJECT
+class TravelersMainWindow : public QMainWindow {
+  Q_OBJECT
 
-public:
-	explicit TravelersMainWindow(QWidget *parent = nullptr);
-	~TravelersMainWindow();
+ public:
+  explicit TravelersMainWindow(QWidget* parent = nullptr);
+  ~TravelersMainWindow();
 
-private:
-	Ui::TravelersMainWindow *ui;
+ private:
+  Ui::TravelersMainWindow* ui;
 };
 
-#endif // TRAVELERSMAINWINDOW_H
+#endif  // TRAVELERSMAINWINDOW_H

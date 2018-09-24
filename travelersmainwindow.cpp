@@ -108,9 +108,11 @@ int getDistanceTraveled(const QVector<City> &cities)  // Story 8
 
 // Function to retrieve surrounding cities and their distances from
 // a given base city
-void getSurroundingCities(const QString baseCity)
+QVector<City> getSurroundingCities(const QString baseCity)
 {
     QSqlQuery query;	// The variable we're accessing the database with
+    QVector<City> nearbyCities;
+    City tempCity = City();
 
     // Request data from the database based on the base city
     query.prepare("SELECT Ending, Distance from Distances WHERE Starting=(:val1)");
@@ -120,10 +122,40 @@ void getSurroundingCities(const QString baseCity)
     // While there are still elements in the query
     while (query.next())
     {
-        QString cityName = query.value(0).toString();
-        int distance = query.value(1).toInt();
+        if (!contains(nearbyCities, query.value(0).toString()))
+        {
+            tempCity.setName(query.value(0).toString());
+            tempCity.setDistance(query.value(1).toInt());
+            nearbyCities.push_back(tempCity);
+        }
+    }
+
+    return nearbyCities;
+}
+
+void selectionSort(QVector<City> &cities)
+{
+    City temp;
+    int smallestIndex;
+
+    for (int index = 0; index < cities.size() - 1; index++)
+    {
+        smallestIndex = index;
+
+        for (int location = index + 1; location < cities.size(); location++)
+        {
+            if (cities[location].getDistance() < cities[smallestIndex].getDistance())
+            {
+                smallestIndex = location;
+            }
+        }
+
+        temp = cities[smallestIndex];
+        cities[smallestIndex] = cities[index];
+        cities[index] = temp;
     }
 }
+
 
 
 TravelersMainWindow::TravelersMainWindow(QWidget *parent) :
@@ -152,4 +184,25 @@ void TravelersMainWindow::on_pushButton_clicked()
         ui->cities->addItem(QString::number(i + 1) + ": " + trip[i].getName());
 
     ui->distanceTraveled->setText("Distance: " + QString::number(getDistanceTraveled(trip)));
+}
+
+void TravelersMainWindow::on_getNearbyCitiesButton_clicked()
+{
+    const QStringList DATA_HEADERS = { "City", "Distance" };
+    ui->tableOfNearbyCities->clear();
+
+    QVector<City> nearbyCities = getSurroundingCities(ui->baseCityInput->text());
+    selectionSort(nearbyCities);
+
+    ui->tableOfNearbyCities->setColumnCount(2);
+    ui->tableOfNearbyCities->setHorizontalHeaderLabels(DATA_HEADERS);
+
+    for (int i = 0; i < nearbyCities.size(); i++)
+    {
+        ui->tableOfNearbyCities->insertRow(i);
+        ui->tableOfNearbyCities->setItem(i, 0, new QTableWidgetItem(nearbyCities[i].getName()));
+        ui->tableOfNearbyCities->setItem(i, 1, new QTableWidgetItem(QString::number(nearbyCities[i].getDistance())));
+        ui->tableOfNearbyCities->item(i, 0)->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+        ui->tableOfNearbyCities->item(i, 1)->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    }
 }

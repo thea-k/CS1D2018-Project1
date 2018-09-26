@@ -1,5 +1,7 @@
 ﻿#include "dbmanager.h"
 
+DbManager * DbManager::controller = nullptr;
+
 
 DbManager::DbManager()
 {
@@ -15,6 +17,17 @@ DbManager::DbManager()
         qDebug() << "Database: Connection running";
     }
 }
+
+
+DbManager * DbManager::getInstance()
+{
+    if(controller == nullptr)
+    {
+        controller = new DbManager();
+    }
+    return controller;
+}
+
 
 void DbManager::initDataBase()
 {
@@ -106,7 +119,7 @@ void DbManager::initDataBase()
 
 
         // checks if  the item is NULL or at the end of file
-        while(tempItem != NULL && !itemsFile.atEnd())
+        while(tempItem != nullptr && !itemsFile.atEnd())
         {
             items.push_back(tempItem); // pushes back the item
             costs.push_back(tempCost); // pushes back the cost
@@ -224,7 +237,74 @@ void DbManager::initDataBase()
 
 }
 
+ QVector<EuropeanCity> DbManager::getCities()
+{
+   QVector<EuropeanCity> cities;
+   QSqlQuery query;
+   query.prepare("SELECT City FROM Cities");
 
+   if(query.exec())
+   {
+       while(query.next())
+       {
+           EuropeanCity newEuropeanCity;
+           newEuropeanCity.name = query.value(0).toString();
+           cities.push_back(newEuropeanCity);
+       }
+   }
+   else
+       qDebug() << "query didnt execute inside getCities()";
+
+   return cities;
+
+
+}
+
+ QVector<TraditionalFoodItems> DbManager::getMenuItems(const QString& city)
+ {
+     QVector<TraditionalFoodItems> menuItems;
+     QSqlQuery query;
+     query.prepare("SELECT Item, Cost FROM Items WHERE City=(:val1)");
+     query.bindValue(":val1", city);
+
+     if(query.exec())
+     {
+         while(query.next())
+         {
+             TraditionalFoodItems item;
+             item.name = query.value(0).toString();
+             item.price = query.value(1).toFloat();
+            menuItems.push_back(item);
+         }
+     }
+     else
+         qDebug() << "query didnt execute inside getCities()";
+
+
+     return menuItems;
+ }
+
+
+ float DbManager::getDistanceInbetween(const QString & starting, const QString & ending)
+ {
+     float distance = 0;
+     QSqlQuery query;
+     query.prepare("SELECT Distance FROM Distances WHERE Starting=(:val1) AND Ending=(:val2)");
+     query.bindValue(":val1", starting);
+     query.bindValue(":val2", ending);
+
+     if(query.exec())
+     {
+        if(query.first())
+             distance = query.value(0).toFloat();
+     }
+     else
+         qDebug() << "query didnt execute:";
+
+
+     return distance;
+
+ }
 
 
 void DbManager::readInTxtFile()

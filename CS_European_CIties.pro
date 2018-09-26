@@ -29,7 +29,8 @@ SOURCES += \
 
 HEADERS += \
         travelersmainwindow.h \
-    dbmanager.h
+    dbmanager.h \
+    city.h
 
 FORMS += \
         travelersmainwindow.ui

@@ -6,13 +6,9 @@
 struct TraditionalFoodItems
 {
     QString name;
-    float price;
+    double price;
 };
 
-struct EuropeanCity
-{
-    QString name;
-    float distanceToBerlin;
-};
+
 
 #endif // CITY_H

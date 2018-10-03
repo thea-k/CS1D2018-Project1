@@ -16,7 +16,7 @@ public:
     DbManager();
     static DbManager * getInstance();
     void initDataBase();
-    QVector<EuropeanCity> getCities();
+    QVector<QString> getCities();
     QVector<TraditionalFoodItems> getMenuItems(const QString& city);
     float getDistanceInbetween(const QString & starting, const QString & ending);
 

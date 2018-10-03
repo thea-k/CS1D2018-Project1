@@ -237,9 +237,9 @@ void DbManager::initDataBase()
 
 }
 
- QVector<EuropeanCity> DbManager::getCities()
+ QVector<QString> DbManager::getCities()
 {
-   QVector<EuropeanCity> cities;
+   QVector<QString> cities;
    QSqlQuery query;
    query.prepare("SELECT City FROM Cities");
 
@@ -247,8 +247,8 @@ void DbManager::initDataBase()
    {
        while(query.next())
        {
-           EuropeanCity newEuropeanCity;
-           newEuropeanCity.name = query.value(0).toString();
+           QString newEuropeanCity;
+           newEuropeanCity = query.value(0).toString();
            cities.push_back(newEuropeanCity);
        }
    }

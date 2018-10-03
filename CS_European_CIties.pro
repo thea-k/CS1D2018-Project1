@@ -25,15 +25,21 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         travelersmainwindow.cpp \
-    dbmanager.cpp
+    dbmanager.cpp \
+    adminoperations.cpp \
+    trip.cpp
 
 HEADERS += \
         travelersmainwindow.h \
     dbmanager.h \
-    city.h
+    city.h \
+    adminoperations.h \
+    trip.h
 
 FORMS += \
-        travelersmainwindow.ui
+        travelersmainwindow.ui \
+    adminoperations.ui \
+    trip.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

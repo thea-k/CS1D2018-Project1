@@ -7,6 +7,9 @@
 #include <algorithm>
 
 #include "dbmanager.h"
+#include "adminoperations.h"
+#include "trip.h"
+
 
 namespace Ui {
 class TravelersMainWindow;
@@ -31,8 +34,13 @@ private slots:
 
     void on_pb_back_clicked();
 
+   void openAdminWindow();
+
 private:
     Ui::TravelersMainWindow *ui;
+    AdminOperations * adminWindow;
+    Trip * tripOperations;
+
 };
 
 #endif // TRAVELERSMAINWINDOW_H

@@ -24,6 +24,8 @@ TravelersMainWindow::TravelersMainWindow(QWidget *parent) :
     //        DbManager::getInstance()->getCities();
     //        DbManager::getInstance()->initDataBase();
     //    DbManager::getInstance()->readInTxtFile();
+
+    connect(ui->actionAdmin_Login, SIGNAL(triggered(bool)),this, SLOT(openAdminWindow()));
 }
 
 
@@ -41,7 +43,7 @@ void TravelersMainWindow::populateDisplay()
 
 
     // vecotor of european cities is initialized by the get cities from db manager
-    QVector<EuropeanCity> cities = DbManager::getInstance()->getCities();
+    QVector<QString> cities = DbManager::getInstance()->getCities();
 
 
     int row = 0;
@@ -50,14 +52,14 @@ void TravelersMainWindow::populateDisplay()
     for(int index = 0; index < cities.size(); index++)
     {
         // a call to the db manager to get the distance betweem two cities, passes the starting ctiy name and then the ending city name
-        float distanceToBerlin = DbManager::getInstance()->getDistanceInbetween(cities[index].name, "Berlin");
+        float distanceToBerlin = DbManager::getInstance()->getDistanceInbetween(cities[index], "Berlin");
 
 
         // creates a new push button, the button is displayed with the name of the city and the distance to berlin
-        QPushButton* cityName = new QPushButton(cities[index].name + "\nDistance to Berlin: " + QString::number(distanceToBerlin) ,this);
+        QPushButton* cityName = new QPushButton(cities[index]+ "\nDistance to Berlin: " + QString::number(distanceToBerlin) ,this);
 
         // sets the name of the object, this will be used as a parameter in the next line
-        cityName->setObjectName(cities[index].name);
+        cityName->setObjectName(cities[index]);
 
         // passes the name of the city, SIGNAL-> once clicked, passes this, then passes the function to call once clicked
         connect(cityName, SIGNAL(clicked()), this, SLOT(selectedCity()));
@@ -138,7 +140,7 @@ void TravelersMainWindow::selectedCity()
 void TravelersMainWindow::on_pb_NextCity_clicked()
 {
     // returns the cities from the db manager
-    QVector<EuropeanCity> cities = DbManager::getInstance()->getCities();
+    QVector<QString> cities = DbManager::getInstance()->getCities();
 
     // the previous city is initialized from the cityLable
     QString previousCity = ui->cityLabel->text();
@@ -161,14 +163,14 @@ void TravelersMainWindow::on_pb_NextCity_clicked()
     // searches through the cities vector to locate the index of the previous city
     for(int index = 0; index < cities.size(); index++)
     {
-        if(previousCity == cities.at(index).name)
+        if(previousCity == cities.at(index))
             indexFound = index; // if the city is found, the indexFound is set to the index of where it was found
     }
 
     newIndex = (indexFound +1)%cities.size(); // increments the indeFound by one, then assigns it to newIndex (the index of the next city)
 
     // stores the name of the new city
-    QString cityName = cities[newIndex].name;
+    QString cityName = cities[newIndex];
 
     // a call to the db manager to get the distance betweem two cities, passes the starting ctiy name and then the ending city name
     float distanceToBerlin = DbManager::getInstance()->getDistanceInbetween(cityName, "Berlin");
@@ -197,6 +199,20 @@ void TravelersMainWindow::on_pb_NextCity_clicked()
 
 
 }
+
+void TravelersMainWindow::openAdminWindow()
+{
+
+    adminWindow = new AdminOperations(this);
+    adminWindow->open();
+
+
+
+
+}
+
+
+
 
 
 // returns to index zero of the stacked widget

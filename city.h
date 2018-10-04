@@ -3,6 +3,8 @@
 
 #include <QString>
 #include <QVector>
+
+
 struct TraditionalFoodItems
 {
     QString name;

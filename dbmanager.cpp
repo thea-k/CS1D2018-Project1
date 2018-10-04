@@ -306,6 +306,31 @@ void DbManager::initDataBase()
 
  }
 
+ bool DbManager::itemExist(const QString & city, const QString & item)
+ {
+     QSqlQuery query;
+     query.prepare("SELECT City, Item FROM Items WHERE City=(:val1) AND Item=(:val2)");
+     query.bindValue(":val1", city);
+     query.bindValue(":val2", item);
+
+     if(query.exec())
+     {
+        if(query.first())
+        {
+            return true;
+        }
+        else
+            return false;
+     }
+     else
+         return false;
+ }
+
+
+ void DbManager::addItem(const QString& city, const QString& item, const double & price)
+ {
+
+ }
 
 void DbManager::readInTxtFile()
 {

@@ -21,6 +21,9 @@ public:
     float getDistanceInbetween(const QString & starting, const QString & ending);
 
     void readInTxtFile();
+    bool itemExist(const QString & city, const QString & item);
+    void addItem(const QString& city, const QString& item, const double & price);
+
 
 
 private:

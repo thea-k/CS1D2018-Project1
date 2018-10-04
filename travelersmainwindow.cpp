@@ -220,3 +220,9 @@ void TravelersMainWindow::on_pb_back_clicked()
 {
      ui->stackedWidget->setCurrentIndex(0);
 }
+
+void TravelersMainWindow::on_pushButton_3_clicked()
+{
+    adminWindow = new AdminOperations(this);
+    adminWindow->exec();
+}

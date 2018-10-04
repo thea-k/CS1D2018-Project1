@@ -6,7 +6,7 @@
 #include <QGridLayout>
 #include <algorithm>
 
-#include "dbmanager.h"
+
 #include "adminoperations.h"
 #include "trip.h"
 
@@ -35,6 +35,8 @@ private slots:
     void on_pb_back_clicked();
 
    void openAdminWindow();
+
+   void on_pushButton_3_clicked();
 
 private:
     Ui::TravelersMainWindow *ui;

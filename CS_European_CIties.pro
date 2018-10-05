@@ -26,20 +26,23 @@ SOURCES += \
         main.cpp \
         travelersmainwindow.cpp \
     dbmanager.cpp \
-    adminoperations.cpp \
-    trip.cpp
+    trip.cpp \
+    test.cpp \
+    admin.cpp
 
 HEADERS += \
         travelersmainwindow.h \
     dbmanager.h \
     city.h \
-    adminoperations.h \
-    trip.h
+    trip.h \
+    test.h \
+    admin.h
 
 FORMS += \
         travelersmainwindow.ui \
-    adminoperations.ui \
-    trip.ui
+    trip.ui \
+    test.ui \
+    admin.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

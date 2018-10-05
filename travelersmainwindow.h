@@ -6,9 +6,13 @@
 #include <QGridLayout>
 #include <algorithm>
 
+#include <QDialog>
 
-#include "adminoperations.h"
+
+#include "admin.h"
 #include "trip.h"
+#include "test.h"
+
 
 
 namespace Ui {
@@ -40,9 +44,10 @@ private slots:
 
 private:
     Ui::TravelersMainWindow *ui;
-    AdminOperations * adminWindow;
+    Admin * adminWindow;
     Trip * tripOperations;
-
+    test * testWindow;
+    QDialog * myDialog;
 };
 
 #endif // TRAVELERSMAINWINDOW_H

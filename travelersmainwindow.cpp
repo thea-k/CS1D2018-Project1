@@ -9,6 +9,7 @@
 
 
 
+
 TravelersMainWindow::TravelersMainWindow(QWidget *parent) :
     QMainWindow(parent),
 
@@ -203,17 +204,12 @@ void TravelersMainWindow::on_pb_NextCity_clicked()
 void TravelersMainWindow::openAdminWindow()
 {
 
-    adminWindow = new AdminOperations(this);
-    adminWindow->open();
-
-
+    hide();
+    adminWindow = new Admin(this);
+    adminWindow->show();
 
 
 }
-
-
-
-
 
 // returns to index zero of the stacked widget
 void TravelersMainWindow::on_pb_back_clicked()
@@ -223,6 +219,8 @@ void TravelersMainWindow::on_pb_back_clicked()
 
 void TravelersMainWindow::on_pushButton_3_clicked()
 {
-    adminWindow = new AdminOperations(this);
-    adminWindow->exec();
+    qDebug() << "hello";
+    adminWindow->close();
+    show();
 }
+

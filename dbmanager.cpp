@@ -332,6 +332,23 @@ void DbManager::initDataBase()
 
  }
 
+ void DbManager::deleteItem(const QString& city, const QString& item)
+ {
+     QSqlQuery query;
+     query.prepare("DELETE FROM Items WHERE City=(:val1) AND Item=(:val2)");
+     query.bindValue(":val1", city);
+     query.bindValue(":val2", item);
+    if( query.exec())
+    {
+        qDebug() << "item is deleted";
+    }
+    else
+    {
+        qDebug() << "not deleted";
+    }
+
+ }
+
 void DbManager::readInTxtFile()
 {
 
